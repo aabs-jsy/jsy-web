@@ -101,17 +101,21 @@ function getRequest(url,bodyInString) {
 
   async function Sendsms(messageTo,payerName,payeeName,amount,receiptnumber)
   {
-    sender = "AABSWT";
-    message= `શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ ધ્વારા સંચાલીત શ્રી જીવન સહાય યોજના ધ્વારા શ્રી ${payerName} `
-    +`તરફથી રૂપીઆ<br />${amount}, ${payeeName} `
+    let sender = "PWASMS";
+    let message= `શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ ધ્વારા સંચાલીત શ્રી જીવન સહાય યોજના ધ્વારા શ્રી ${payerName} `
+    +`તરફથી રૂપીઆ ${amount}, ${payeeName} `
     +`ના મૃત્યુ પેટે સ્વીકારવામા આવલે છે. રસીદ નંબર - ${receiptnumber}`;
 
     let api_url = "http://msg.pwasms.com/app/smsapi/index.php?key=45F3B943047D61"
-    +"&campaign=0&routeid=51&type=unicode&contacts=9033574544&senderid="+sender
-    +"&msg="+encodeURIComponent(message);
+    +"&campaign=0&routeid=9&type=unicode&contacts=9033574544&senderid="+sender
+    +"&msg="+utf8.encode(message);
     
     
-    //await getRequestNonJson(api_url);
+   // await getRequestNonJson(api_url);
+
+   console.log(api_url)
+console.log(utf8.encode(api_url))
+console.log(utf8.decode(utf8.encode(api_url)))
     /*
     
     http://msg.pwasms.com/app/smsapi/index.php?key=45F3B943047D61&campaign=0&routeid=31type=text&contacts=9033574544&%20senderid=AABSWT&msg=Hello+People%2C+have+a+great+day
