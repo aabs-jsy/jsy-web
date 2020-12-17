@@ -2,10 +2,14 @@ const express = require('express')
 var moment = require('moment')
 const fs = require('fs')
 const app = express()
-const port = 3000
+const port = 80
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+
+app.get('/', async (req, res) => {
+  res.send("Hii!!!");
+});
 
 app.get('/receipt', async (req, res) => {
     var payerMemberId = req.query.payerMemberId;
