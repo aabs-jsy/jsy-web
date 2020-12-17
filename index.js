@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000
 app.set('view engine', 'ejs');
 
 app.get('/', async (req, res) => {
-  res.send("Hii!!! 123");
+  res.send("Hii!!! 123 ok");
 });
 
 app.get('/receipt', async (req, res) => {
