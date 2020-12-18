@@ -12,6 +12,8 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/receipt', async (req, res) => {
+  try {
+    
     var payerMemberId = req.query.payerMemberId;
     var payeeMemberId =  req.query.payeeMemberId;
     var amount =  req.query.amount;
@@ -47,6 +49,10 @@ app.get('/receipt', async (req, res) => {
     });
 
   });
+  
+} catch (error) {
+  console.log(error)
+}
 })
 
 
