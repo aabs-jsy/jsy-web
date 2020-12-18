@@ -28,7 +28,7 @@ app.get('/receipt', async (req, res) => {
     let response =  await getRequest(googleReceiptCallBackUrl,'{}')
     console.log(response);
     // send message
-    Sendsms('9033574544',response.payerMember.MemberName,response.payeeMemeber.MemberName,amount,receiptNumber);
+    //Sendsms('9033574544',response.payerMember.MemberName,response.payeeMemeber.MemberName,amount,receiptNumber);
 
     const browser =  await puppeteer.launch({headless: true});//===await puppeteer.launch();
     const page = await browser.newPage();
