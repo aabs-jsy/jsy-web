@@ -39,7 +39,6 @@ app.get('/receipt', async (req, res) => {
     console.log(host);
     // todo: correction spelling payeeMemeber
     await page.goto( host+'/receiptPdf?receiptNumber='+ receiptNumber +'&payerMemberId=' + payerMemberId+'&payeeMemberId=' + payeeMemberId+"&paymentAmount="+amount+"&payerName="+response.payerMember.MemberName+"&payeeName="+response.payeeMemeber.MemberName, {waitUntil: 'networkidle2'});
-    await page.setContent(html, { waitUntil: 'networkidle0' })
     const html = await page.content();
     console.log(html)
     
@@ -140,3 +139,24 @@ console.log(utf8.decode(utf8.encode(api_url)))
     http://msg.pwasms.com/app/smsapi/index.php?key=45F3B943047D61&campaign=0&routeid=31type=text&contacts=9033574544&%20senderid=AABSWT&msg=Hello+People%2C+have+a+great+day
     */
   }
+
+
+
+
+
+
+const main = async () => {
+  const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://hardikraval.herokuapp.com/receiptPdf?receiptNumber=1608419729730638000&payerMemberId=M3&payeeMemberId=M5&paymentAmount=100&payerName=XYZ&payeeName=%E0%A4%AB%E0%A4%B2%E0%A4%BE%E0%A4%A8%E0%A4%BE%20%E0%A4%AD%E0%A4%BE%E0%A4%88');
+
+    const pdf = await page.pdf();
+    return pdf;
+ }
+
+
+app.get('/', async function (req, res) {
+        const pdf = await main();
+        res.contentType("application/pdf");
+        res.send(pdf);
+});
