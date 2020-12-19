@@ -39,6 +39,10 @@ app.get('/receipt', async (req, res) => {
     console.log(host);
     // todo: correction spelling payeeMemeber
     await page.goto( host+'/receiptPdf?receiptNumber='+ receiptNumber +'&payerMemberId=' + payerMemberId+'&payeeMemberId=' + payeeMemberId+"&paymentAmount="+amount+"&payerName="+response.payerMember.MemberName+"&payeeName="+response.payeeMemeber.MemberName, {waitUntil: 'networkidle2'});
+    await page.setContent(html, { waitUntil: 'networkidle0' })
+    const html = await page.content();
+    console.log(html)
+    
     await page.pdf({path: pdfFileName, format: 'A4'});
 
     await browser.close();
