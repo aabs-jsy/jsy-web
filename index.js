@@ -32,7 +32,7 @@ app.get('/receipt', async (req, res) => {
     console.log(response);
     // send message
     //Sendsms('9033574544',response.payerMember.MemberName,response.payeeMemeber.MemberName,amount,receiptNumber);
-    res.send("  ok.");
+    
     const browser =  await puppeteer.launch({headless: true,args: ["--no-sandbox"]});//===await puppeteer.launch();
     const page = await browser.newPage();
     let host = req.protocol + "://" + req.get('host') ;//+( port == 80 || port == 443 ? '' : ':'+port );
