@@ -147,7 +147,7 @@ console.log(utf8.decode(utf8.encode(api_url)))
 
 
 const main = async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({headless: true,args: ["--no-sandbox"]});
     const page = await browser.newPage();
     await page.goto('https://hardikraval.herokuapp.com/receiptPdf?receiptNumber=1608419729730638000&payerMemberId=M3&payeeMemberId=M5&paymentAmount=100&payerName=XYZ&payeeName=%E0%A4%AB%E0%A4%B2%E0%A4%BE%E0%A4%A8%E0%A4%BE%20%E0%A4%AD%E0%A4%BE%E0%A4%88');
 
