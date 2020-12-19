@@ -21,6 +21,8 @@ app.get('/receipt', async (req, res) => {
     let receiptNumber = nanosecond();
     let pdfFileName = receiptNumber+'.pdf';
 
+    res.send('ok');
+/*
     const puppeteer = require('puppeteer');
 
     let googleReceiptCallBackUrl = `https://script.google.com/macros/s/AKfycbxGcWSuzok59PPmQ9k4jeZLIY9wUtBSvkZQ0vYKoa1eilxyMMk/exec`
@@ -46,6 +48,8 @@ app.get('/receipt', async (req, res) => {
         }
         fs.unlink(pdfFileName, function(){
             console.log("File was deleted") // Callback
+
+            */
     });
 
   });
