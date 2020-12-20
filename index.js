@@ -41,7 +41,7 @@ app.get('/receipt', async (req, res) => {
     await page.goto( host+'/receiptPdf?receiptNumber='+ receiptNumber +'&payerMemberId=' + payerMemberId+'&payeeMemberId=' + payeeMemberId+"&paymentAmount="+amount+"&payerName="+response.payerMember.MemberName+"&payeeName="+response.payeeMemeber.MemberName, {waitUntil: 'networkidle2'});
     //const html = await page.content();
    // console.log(html)
-   await page.setContent(html, { waitUntil: 'networkidle0' })
+   //await page.setContent(html, { waitUntil: 'networkidle0' })
     await page.pdf({path: pdfFileName, format: 'A4'});
     res.setHeader('Content-type', 'aplication/pdf');
 
