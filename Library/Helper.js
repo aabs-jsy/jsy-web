@@ -1,6 +1,6 @@
 const utf8 = require('utf8');
 const Enums = require("./Enums");
-const Utility = require("./utility");
+const Utility = require("./Utility"); 
 module.exports = class Helper {
 
   static ValidateReceiptModel = (receiptModel) => {
