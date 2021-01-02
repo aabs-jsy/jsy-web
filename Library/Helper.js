@@ -64,7 +64,7 @@ module.exports = class Helper {
       + "&msg=" + encodeURI(utf8.encode(message));
       console.log(api_url);
 
-    //await Utility.getRequest(api_url);
+    await Utility.getRequest(api_url);
 
   }
 
