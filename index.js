@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
+app.use(express.static('public'))
 
 app.get('/', async (req, res) => {
   res.send("Welcome!");
@@ -48,7 +49,7 @@ app.get('/receipt', async (req, res) => {
 
     // generate pdf file
     await Helper.generateReceiptPdf(req, receipt, pdfFileName);
-
+    console.log('pdf downloaded')
     // download pdf file
     res.setHeader('Content-type', 'aplication/pdf');
     res.download(pdfFileName, pdfFileName, function (err) {
@@ -61,12 +62,12 @@ app.get('/receipt', async (req, res) => {
         console.log("File was deleted") // Callback
       });
 
-     Helper.Sendsms(receipt.payerMemeberPhone,
+    /* Helper.Sendsms(receipt.payerMemeberPhone,
         receipt.payerMemberName,
         receipt.payeeMemberName,
         receipt.amount,
         receipt.receiptNumber
-      )
+      )*/
 
     });
 

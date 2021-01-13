@@ -1,6 +1,7 @@
 const utf8 = require('utf8');
 const Enums = require("./Enums");
 const Utility = require("./Utility"); 
+
 module.exports = class Helper {
 
   static ValidateReceiptModel = (receiptModel) => {
@@ -18,7 +19,9 @@ module.exports = class Helper {
       // + `&amount=${receiptRequest.amount}`
       // + `&receiptNumber=${receiptRequest.receiptNumber}`
 
-    return Utility.getRequest(googleReceiptCallBackUrl, '{}')
+      console.log(googleReceiptCallBackUrl)
+
+    return Utility.getJsonRequest(googleReceiptCallBackUrl, '{}')
   }
 
   static generateReceiptPdf = async (req, receipt, pdfFileName) => {
@@ -42,13 +45,15 @@ module.exports = class Helper {
 
     // todo: correction spelling payeeMemeber
     await page.goto(pdfReceiptUrl, { waitUntil: 'networkidle2' });
-
+    
     await page.pdf({ path: pdfFileName, format: 'A4' });
 
     await browser.close();
+
   }
 
   static Sendsms = async (messageTo, payerName, payeeName, amount, receiptnumber) => {
+    try{
     let sender = "PWASMS";
     let message = `શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ ધ્વારા સંચાલીત શ્રી જીવન સહાય યોજના ધ્વારા શ્રી ${payerName} `
       + `તરફથી રૂપીઆ ${amount}, ${payeeName} `
@@ -62,9 +67,14 @@ module.exports = class Helper {
       + "&contacts=" + messageTo
       + "&senderid=" + sender
       + "&msg=" + encodeURI(utf8.encode(message));
-      console.log(api_url);
+      //console.log(api_url);
 
-    await Utility.getRequest(api_url);
+      await Utility.getRequest(api_url);
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
 
   }
 

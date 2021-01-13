@@ -17,12 +17,25 @@ module.exports = class Utility {
 
       fetch(url,
         {
+          method: 'GET'          //  body: bodyInString
+        }).then(response => {
+          resolve(response);
+        }).catch(err => { reject(err); });
+    });
+  }
+
+  static getJsonRequest = (url, bodyInString) => {
+    return new Promise(function (resolve, reject) {
+      let fetch = require('node-fetch');
+
+      fetch(url,
+        {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           //  body: bodyInString
         }).then(response => {
           resolve(response.json());
-        }).catch(err => { console.log(err); });
+        }).catch(err => { reject(err); });
     });
   }
   

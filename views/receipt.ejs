@@ -1,18 +1,257 @@
-<h1 id="tw-target-text" class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" style="text-align: center;" data-placeholder="Translation"><strong>રસીદ</strong></h1>
-<p id="tw-target-text" class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Translation">
-    <strong><span lang="gu">રસીદ નંબર: <%= template.receiptNumber %> (<%= template.paymentMethod %>)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></strong></p>
-<p class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Translation">
-    <strong><span lang="gu">Date: <%= template.generatedOn %></span></strong></p>
-<hr />
-<p class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Translation">શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ ધ્વારા સંચાલીત 
-    શ્રી જીવન સહાય યોજના ધ્વારા શ્રી <%= template.payerMemberName %> તરફથી રૂપીઆ<br /><%= template.amount %>, <%= template.payeeMemberName %> 
-    ના મૃત્યુ પેટે સ્વીકારવામા આવલે છે.</p>
-<p class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Translation">&nbsp;</p>
-<p class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Translation">-----------------------------</p>
-<p class="tw-data-text tw-text-large XcVN5d tw-ta" dir="ltr" data-placeholder="Translation">શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ</p>
+
+
+<html>
+<head>
+<link href="/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="/bootstrap.min.js"></script>
+<script src="/jquery.min.js"></script>
+<script src="/bootstrap.bundle.min.js"></script>
+
 
 <style>
-    body{
-        padding: 10px;
-    }
+    #invoice{
+    padding: 30px;
+}
+
+.invoice {
+    position: relative;
+    background-color: #FFF;
+    min-height: 680px;
+    padding: 15px
+}
+
+.invoice header {
+    padding: 10px 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #3989c6
+}
+
+.invoice .company-details {
+    text-align: right
+}
+
+.invoice .company-details .name {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #3989c6;
+    font-weight: bold;
+}
+
+.invoice .contacts {
+    margin-bottom: 20px
+}
+
+.invoice .invoice-to {
+    text-align: left
+}
+
+.invoice .invoice-to .to {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.invoice .invoice-details {
+    text-align: right
+}
+
+.invoice .invoice-details .invoice-id {
+    margin-top: 0;
+    color: #3989c6
+}
+
+.invoice main {
+    padding-bottom: 50px
+}
+
+.invoice main .thanks {
+    margin-top: -100px;
+    font-size: 2em;
+    margin-bottom: 50px
+}
+
+.invoice main .notices {
+    padding-left: 6px;
+    border-left: 6px solid #3989c6
+}
+
+.invoice main .notices .notice {
+    font-size: 1.2em
+}
+
+.invoice table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-bottom: 20px
+}
+
+.invoice table td,.invoice table th {
+    padding: 15px;
+    border-bottom: 1px solid #fff
+}
+
+.invoice table th {
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 16px
+}
+
+.invoice table td h3 {
+    margin: 0;
+    font-weight: 400;
+    color: #3989c6;
+    font-size: 1.2em
+}
+
+.invoice table .qty,.invoice table .total,.invoice table .unit {
+    text-align: right;
+    font-size: 1.2em
+}
+
+.invoice table .no {
+    color: #fff;
+    font-size: 1.6em;
+    background: #3989c6
+}
+
+.invoice table .unit {
+    background: #ddd
+}
+
+.invoice table .total {
+    background: #3989c6;
+    color: #fff
+}
+
+.invoice table tbody tr:last-child td {
+    border: none
+}
+
+.invoice table tfoot td {
+    background: 0 0;
+    border-bottom: none;
+    white-space: nowrap;
+    text-align: right;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-top: 1px solid #aaa
+}
+
+.invoice table tfoot tr:first-child td {
+    border-top: none
+}
+
+.invoice table tfoot tr:last-child td {
+    color: #3989c6;
+    font-size: 1.4em;
+    border-top: 1px solid #3989c6
+}
+
+.invoice table tfoot tr td:first-child {
+    border: none
+}
+
+.invoice footer {
+    width: 100%;
+    text-align: center;
+    color: #777;
+    border-top: 1px solid #aaa;
+    padding: 8px 0
+}
+.text-gray-light, .address, .email
+{
+    font-size: 12px;
+}
+
 </style>
+</head>
+<!------ Include the above in your HEAD tag ---------->
+<body>
+<!--Author      : @arboshiki-->
+<div id="invoice">    
+    <div class="invoice overflow-auto">
+        <div style="min-width: 600px">
+            <header>
+                <div class="row">
+                    <div class="col">
+                            <img src="/lobiadmin-logo-text-64.png" data-holder-rendered="true" width="450px;" height="70px;" />
+                    </div>
+                    <!-- <div class="col company-details">
+                        <h2 class="name">                     
+                            શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ સંચાલીત
+                        </h2>
+                       
+                        <div>admin@aabs.com</div>
+                    </div> -->
+                </div>
+            </header>
+            <main>
+                <div class="row contacts">
+                    <div class="col invoice-to" style="float: left;     width: 50%; line-height: 2">
+                        <div class="text-gray-light">ચુકવણી કરનાર:</div>
+                        <h2 class="to"><%= template.payerMemberName %> </h2>
+                        <div class="address">ગામ, <span class="label label-info" style="font-size: 12px;">સભાસદ નં: <%= template.payerMemberId %></span> </div>
+                        <div class="email"><%= template.payerMemeberEmail %></div>
+                    </div>
+                    <div class="col invoice-details">
+                        <h1 class="invoice-id" style=" color: #3989c6 !important;"># રસીદ <%= template.payerMemberId %><%= template.payeeMemberId%></h1>
+                        <div class="date"><b>રસીદ નં: <%= template.receiptNumber %></b></div>
+                        <div class="date">તારીખ: <%= template.generatedOn %></div>
+                        <div class="date">(<%= template.paymentMethod %>)</div>
+                    </div>
+                </div>
+                <table border="0" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr  >
+                            <th style="font-weight: bold !important;; text-decoration:underline !important;  color: #3989c6 !important;" >મૃતક નો સભાસદ નં</th>
+                            <th style="font-weight: bold !important;; text-decoration:underline !important;  color: #3989c6 !important;" class="text-left">નામ</th>
+                            <th style="font-weight: bold !important;; text-decoration:underline !important;  color: #3989c6 !important;" class="text-right">ગામ</th>
+                            <th style="font-weight: bold !important;; text-decoration:underline !important;  color: #3989c6 !important;" class="text-right">રૂપિયા</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="no"><%= template.payeeMemberId%></td>
+                            <td class="text-left"><h3>
+                                <%= template.payeeMemberName%>
+                                </h3>
+                            </td>
+                            <td class="unit">ગામ</td>
+                            <td class="total">₹ <%= template.amount%></td>
+                        </tr>
+                        
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                           
+                            <td colspan="3">કુલ</td>
+                            <td>₹ <%= template.amount%></td>
+                        </tr>
+                        <tr>
+                            
+                            <td colspan="3">ટેક્સ %</td>
+                            <td>₹ 0.00</td>
+                        </tr>
+                        <tr>
+                          
+                            <td colspan="3">કુલ રકમ</td>
+                            <td>₹ <%= template.amount%></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="thanks">Thank you!</div>
+                <div class="notices">
+                    <div>નોંધ:</div>
+                    <div class="notice">આ રસીદ કમ્પ્યુટર પર બનાવવામાં આવેલ હોવાથી તે સહી અને સીલ વિના માન્ય છે.</div>
+                </div>
+            </main>
+            <footer>
+                Invoice was created on a computer and is valid without the signature and seal.
+            </footer>
+        </div>
+        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+        <div></div>
+    </div>
+</div>
+</body>
+</html>
