@@ -62,12 +62,12 @@ app.get('/receipt', async (req, res) => {
         console.log("File was deleted") // Callback
       });
 
-    /* Helper.Sendsms(receipt.payerMemeberPhone,
+     Helper.Sendsms(receipt.payerMemeberPhone,
         receipt.payerMemberName,
         receipt.payeeMemberName,
         receipt.amount,
         receipt.receiptNumber
-      )*/
+      )
 
     });
 
