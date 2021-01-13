@@ -67,7 +67,7 @@ module.exports = class Helper {
       + "&contacts=" + messageTo
       + "&senderid=" + sender
       + "&msg=" + encodeURI(utf8.encode(message));
-      //console.log(api_url);
+      console.log(api_url);
 
       await Utility.getRequest(api_url);
     }

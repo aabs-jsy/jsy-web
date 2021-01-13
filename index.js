@@ -38,8 +38,8 @@ app.get('/receipt', async (req, res) => {
 
     receipt.payerMemberName = googleSheetData.payerMember.MemberName;
     receipt.payeeMemberName = googleSheetData.payeeMember.MemberName;
-    receipt.payerMemeberPhone = googleSheetData.payeeMember.Phone;
-    receipt.payerMemeberEmail = googleSheetData.payeeMember.Email;
+    receipt.payerMemeberPhone = googleSheetData.payerMember.Phone;
+    receipt.payerMemeberEmail = googleSheetData.payerMember.Email;
     
     // define pdf file name
     let pdfFileName = receipt.payerMemberName.substring(0, 8) + '_'
