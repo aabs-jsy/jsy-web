@@ -1,7 +1,7 @@
 const Utility = require("../Library/Utility");
 
 module.exports = class Receipt{
-    constructor(receiptNumber, payerMemberId, payeeMemberId, amount, paymentMethod, payerMemberName, payeeMemberName, phone, email)
+    constructor(receiptNumber, payerMemberId, payeeMemberId, amount, paymentMethod, payerMemberName, payeeMemberName, phone, email, payeeMemeberCity)
     {
         this.receiptNumber = receiptNumber;
         this.payerMemberId = payerMemberId;
@@ -12,6 +12,7 @@ module.exports = class Receipt{
         this.generatedOn = Utility.currentDatetimeWithFormat(),
         this.paymentMethod = paymentMethod,
         this.payerMemeberPhone = phone,
-        this.payerMemeberEmail = email
+        this.payerMemeberEmail = email,
+        this.payeeMemeberCity = payeeMemeberCity
     }
 }

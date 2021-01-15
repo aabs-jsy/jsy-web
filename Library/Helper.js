@@ -48,6 +48,8 @@ module.exports = class Helper {
     
     await page.pdf({ path: pdfFileName, format: 'A4' });
 
+    await page.screenshot({ path: './public/'+receipt.receiptNumber+".png", format: 'A4' });
+
     await browser.close();
 
   }
@@ -57,7 +59,7 @@ module.exports = class Helper {
     let sender = "PWASMS";
     let message = `શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ ધ્વારા સંચાલીત શ્રી જીવન સહાય યોજના ધ્વારા શ્રી ${payerName} `
       + `તરફથી રૂપીઆ ${amount}, ${payeeName} `
-      + `ના મૃત્યુ પેટે સ્વીકારવામા આવલે છે. રસીદ નંબર - ${receiptnumber}`;
+      + `ના મૃત્યુ પેટે સ્વીકારવામા આવેલ છે. રસીદ નંબર - ${receiptnumber}`;
 
     let api_url = "http://msg.pwasms.com/app/smsapi/index.php"
       + "?key=45F3B943047D61"
@@ -77,6 +79,59 @@ module.exports = class Helper {
     }
 
   }
+  
+  static SendWhatsApp = async (messageTo, payerName, payeeName, amount, receiptnumber, req, snapshotName) => {
+    try{
+    let sender = "PWASMS";
+    let message = `શ્રી ઔદિચ્ય​ આચાર્ય બ્રહ્મ સમાજ ધ્વારા સંચાલીત શ્રી જીવન સહાય યોજના ધ્વારા શ્રી ${payerName} `
+      + `તરફથી રૂપીઆ ${amount}, ${payeeName} `
+      + `ના મૃત્યુ પેટે સ્વીકારવામા આવેલ છે. રસીદ નંબર - ${receiptnumber}`;
 
+    // let api_url = 'http://bulkwhatsapp.live/whatsapp/api/send';
+
+    // let messageObject = {
+    //   'apikey':'a30383ad223440f193cce6f00826ee5b',
+    //   'mobile':messageTo,
+    //   'msg':message
+    // }
+    //   console.log(api_url);
+
+    //   console.log( await Utility.postRequest(api_url, messageObject));
+    
+    let snapShotUrl = req.protocol + "://" + req.get('host')+'/'+snapshotName;
+
+    console.log(snapShotUrl);
+      var request = require('request');
+      var options = {
+        'method': 'POST',
+        'url': 'http://bulkwhatsapp.live/whatsapp/api/send',
+        'headers': {
+        },
+        formData: {
+          'apikey': 'a30383ad223440f193cce6f00826ee5b',
+          'mobile': messageTo,
+          'msg': message,
+          'img1': snapShotUrl
+        }
+      };
+      request(options, function (error, response) {
+        if (error) throw new Error(error);
+        console.log(response.body);
+        const fs = require('fs')
+        if(fs.existsSync('./public/'+snapshotName))
+        {
+        fs.unlink('./public/'+snapshotName, function () {
+          console.log("Snapshot was deleted") // Callback
+        });
+      }
+      });
+
+    }
+    catch(err)
+    {
+      console.log(err)
+    }
+
+  }
 
 }

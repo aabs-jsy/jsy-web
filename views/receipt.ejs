@@ -109,18 +109,18 @@
 }
 
 .invoice table .no {
-    color: #fff;
+   /* color: #fff;*/
     font-size: 1.6em;
-    background: #3989c6
+    /*background: #3989c6*/
 }
 
 .invoice table .unit {
-    background: #ddd
+   /* background: #ddd*/
 }
 
 .invoice table .total {
-    background: #3989c6;
-    color: #fff
+   /* background: #3989c6;*/
+   /* color: #fff*/
 }
 
 .invoice table tbody tr:last-child td {
@@ -191,6 +191,7 @@
                         <div class="text-gray-light">ચુકવણી કરનાર:</div>
                         <h2 class="to"><%= template.payerMemberName %> </h2>
                         <div class="address">ગામ, <span class="label label-info" style="font-size: 12px;">સભાસદ નં: <%= template.payerMemberId %></span> </div>
+                        <div class="email" >Mo. <%= template.payerMemeberPhone %> </div>
                         <div class="email"><%= template.payerMemeberEmail %></div>
                     </div>
                     <div class="col invoice-details">
@@ -211,12 +212,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="no"><%= template.payeeMemberId%></td>
+                            <td class="no"><%= template.payeeMemberId %></td>
                             <td class="text-left"><h3>
                                 <%= template.payeeMemberName%>
                                 </h3>
                             </td>
-                            <td class="unit">ગામ</td>
+                            <td class="unit"><%= template.payeeMemeberCity%></td>
                             <td class="total">₹ <%= template.amount%></td>
                         </tr>
                         

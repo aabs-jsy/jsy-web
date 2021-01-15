@@ -27,7 +27,8 @@ app.get('/receipt', async (req, res) => {
       req.query.payerMemberId,
       req.query.payeeMemberId,
       req.query.amount,
-      req.query.Method
+      req.query.Method,
+      req.query.City
     );
 
     // validate receipt 
@@ -40,6 +41,7 @@ app.get('/receipt', async (req, res) => {
     receipt.payeeMemberName = googleSheetData.payeeMember.MemberName;
     receipt.payerMemeberPhone = googleSheetData.payerMember.Phone;
     receipt.payerMemeberEmail = googleSheetData.payerMember.Email;
+    receipt.payeeMemeberCity = googleSheetData.payeeMember.City;
     
     // define pdf file name
     let pdfFileName = receipt.payerMemberName.substring(0, 8) + '_'
@@ -67,8 +69,18 @@ app.get('/receipt', async (req, res) => {
         receipt.payeeMemberName,
         receipt.amount,
         receipt.receiptNumber
-      )
+      );
 
+      Helper.SendWhatsApp(receipt.payerMemeberPhone,
+        receipt.payerMemberName,
+        receipt.payeeMemberName,
+        receipt.amount,
+        receipt.receiptNumber,
+        req,
+        receipt.receiptNumber+'.png'
+      );
+
+      
     });
 
   } catch (error) {

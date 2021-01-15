@@ -24,6 +24,20 @@ module.exports = class Utility {
     });
   }
 
+  static postRequest = (url, bodyInString) => {
+    return new Promise(function (resolve, reject) {
+      let fetch = require('node-fetch');
+
+      fetch(url,
+        {
+          method: 'POST'  , 
+          body: bodyInString
+        }).then(response => {
+          resolve(response);
+        }).catch(err => { reject(err); });
+    });
+  }
+
   static getJsonRequest = (url, bodyInString) => {
     return new Promise(function (resolve, reject) {
       let fetch = require('node-fetch');
