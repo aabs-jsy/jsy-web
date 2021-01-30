@@ -78,7 +78,7 @@ module.exports = class Helper {
       console.log(err)
     }
 
-  } 
+  }
   
   static SendWhatsApp = async (messageTo, payerName, payeeName, amount, receiptnumber, req, snapshotName) => {
     try{
